@@ -1,0 +1,6 @@
+syntax: glob
+StateMachine.5.1.ReSharper.user
+StateMachine/_ReSharper.Manatee.Utilities.StateMachine/
+StateMachine/bin/
+StateMachine/obj/
+_ReSharper.StateMachine/
