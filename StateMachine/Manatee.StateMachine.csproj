@@ -35,9 +35,9 @@
     <DocumentationFile>bin\Releases\Manatee.StateMachine.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Publish|AnyCPU'">
-    <OutputPath>..\..\Publish\</OutputPath>
+    <OutputPath>..\..\Releases\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>..\..\Publish\Manatee.StateMachine.XML</DocumentationFile>
+    <DocumentationFile>..\..\Releases\Manatee.StateMachine.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
