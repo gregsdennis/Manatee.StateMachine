@@ -17,7 +17,7 @@
 	File Name:		StateMachine.cs
 	Namespace:		Manatee.StateMachine
 	Class Name:		StateMachine<TState, TInput>
-	Purpose:		Represents an extensibe generic state machine.
+	Purpose:		Represents an extensible generic state machine.
 
 ***************************************************************************************/
 using System;
@@ -27,14 +27,14 @@ using Manatee.StateMachine.Exceptions;
 namespace Manatee.StateMachine
 {
 	/// <summary>
-	/// Represents an extensibe generic state machine.
+	/// Represents an extensible generic state machine.
 	/// </summary>
 	/// <typeparam name="TState">The object type to be used for states.</typeparam>
 	/// <typeparam name="TInput">The object type to be used for inputs.</typeparam>
 	public class StateMachine<TState, TInput>
 	{
-		private Dictionary<TState, Dictionary<TInput, StateMachineAction>> _machine;
-		private Dictionary<object, TState> _currentStates;
+		private readonly Dictionary<TState, Dictionary<TInput, StateMachineAction>> _machine;
+		private readonly Dictionary<object, TState> _currentStates;
 
 		/// <summary>
 		/// Gets the list of states.
@@ -69,7 +69,7 @@ namespace Manatee.StateMachine
 		/// not set.
 		/// </returns>
 		/// <remarks>
-		/// The setter automatically addes the state and input to the States and
+		/// The setter automatically adds the state and input to the States and
 		/// Inputs lists.
 		/// </remarks>
 		/// <exception cref="InputNotValidForStateException&lt;TState,TInput&gt;">
@@ -156,18 +156,16 @@ namespace Manatee.StateMachine
 		/// </exception>
 		public void Run(object owner, TState startState, InputStream<TInput> inputStream)
 		{
-			StateMachineAction action;
-			object input;
 			_currentStates[owner] = startState;
 			if (UpdateFunction != null) UpdateFunction(owner);
 			inputStream.Reset();
 			while (!inputStream.IsAtEnd)
 			{
-				input = inputStream.Next();
-				action = this[_currentStates[owner], (TInput)input];
+				var input = inputStream.Next();
+				var action = this[_currentStates[owner], input];
 				if (action == null)
-					throw new ActionNotDefinedForStateAndInputException<TState, TInput>(_currentStates[owner], (TInput)input);
-				_currentStates[owner] = action(owner, (TInput)input);
+					throw new ActionNotDefinedForStateAndInputException<TState, TInput>(_currentStates[owner], input);
+				_currentStates[owner] = action(owner, input);
 				if (UpdateFunction != null) UpdateFunction(owner);
 			}
 		}
