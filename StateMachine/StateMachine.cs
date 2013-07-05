@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using Manatee.StateMachine.Exceptions;
+using Manatee.StateMachine.Internal;
 
 namespace Manatee.StateMachine
 {
@@ -33,8 +34,8 @@ namespace Manatee.StateMachine
 	/// <typeparam name="TInput">The object type to be used for inputs.</typeparam>
 	public class StateMachine<TState, TInput>
 	{
-		private readonly Dictionary<TState, Dictionary<TInput, StateMachineAction>> _machine;
-		private readonly Dictionary<object, TState> _currentStates;
+		private readonly IDictionary<TState, IDictionary<TInput, StateMachineAction>> _machine;
+		private readonly IDictionary<object, TState> _currentStates;
 
 		/// <summary>
 		/// Gets the list of states.
@@ -131,8 +132,8 @@ namespace Manatee.StateMachine
 			States = new List<TState>();
 			Inputs = new List<TInput>();
 			Actions = new List<StateMachineAction>();
-			_machine = new Dictionary<TState, Dictionary<TInput, StateMachineAction>>();
-			_currentStates = new Dictionary<object, TState>();
+			_machine = new Dictionary<TState, IDictionary<TInput, StateMachineAction>>();
+			_currentStates = new ConcurrentDictionary<object, TState>(new Dictionary<object, TState>());
 			UpdateFunction = null;
 		}
 
@@ -162,9 +163,10 @@ namespace Manatee.StateMachine
 			while (!inputStream.IsAtEnd)
 			{
 				var input = inputStream.Next();
-				var action = this[_currentStates[owner], input];
+				var currentState = _currentStates[owner];
+				var action = this[currentState, input];
 				if (action == null)
-					throw new ActionNotDefinedForStateAndInputException<TState, TInput>(_currentStates[owner], input);
+					throw new ActionNotDefinedForStateAndInputException<TState, TInput>(currentState, input);
 				_currentStates[owner] = action(owner, input);
 				if (UpdateFunction != null) UpdateFunction(owner);
 			}
