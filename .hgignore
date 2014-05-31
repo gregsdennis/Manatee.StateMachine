@@ -6,3 +6,11 @@ StateMachine/obj/
 _ReSharper.StateMachine/
 Nuget/
 StateMachine.sln.DotSettings.user
+Frameworks/3.5/Manatee.StateMachine/bin/
+Frameworks/3.5 Client/Manatee.StateMachine/bin/
+Frameworks/3.5 Client/Manatee.StateMachine/obj/
+Frameworks/3.5/Manatee.StateMachine/obj/
+Frameworks/4.0 Client/Manatee.StateMachine/bin/
+Frameworks/4.0 Client/Manatee.StateMachine/obj/
+Frameworks/4.5/Manatee.StateMachine/bin/
+Frameworks/4.5/Manatee.StateMachine/obj/
