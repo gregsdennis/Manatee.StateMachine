@@ -133,7 +133,7 @@ namespace Manatee.StateMachine
 			Inputs = new List<TInput>();
 			Actions = new List<StateMachineAction>();
 			_machine = new Dictionary<TState, IDictionary<TInput, StateMachineAction>>();
-			_currentStates = new ConcurrentDictionary<object, TState>(new Dictionary<object, TState>());
+			_currentStates = new ConcurrentDictionary<object, TState>(new Dictionary<object, TState>(new IdentityEqualityComparer<object>()));
 			UpdateFunction = null;
 		}
 
