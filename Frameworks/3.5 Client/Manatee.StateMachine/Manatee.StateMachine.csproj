@@ -44,13 +44,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\StateMachine\Exceptions\ActionNotDefinedForStateAndInputException.cs" />
-    <Compile Include="..\..\..\StateMachine\Exceptions\InputNotValidForStateException.cs" />
-    <Compile Include="..\..\..\StateMachine\Exceptions\StateNotValidException.cs" />
-    <Compile Include="..\..\..\StateMachine\InputStream.cs" />
-    <Compile Include="..\..\..\StateMachine\Internal\ConcurrentDictionary.cs" />
-    <Compile Include="..\..\..\StateMachine\StateMachine.cs" />
-  </ItemGroup>
+		<Compile Include="..\..\..\StateMachine\**\*.cs" />
+	</ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 			 Other similar extension points exist, see Microsoft.Common.targets.
