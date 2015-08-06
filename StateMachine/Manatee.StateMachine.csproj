@@ -66,6 +66,7 @@
     <Compile Include="Exceptions\StateNotValidException.cs" />
     <Compile Include="InputStream.cs" />
     <Compile Include="Internal\ConcurrentDictionary.cs" />
+    <Compile Include="Internal\IdentityEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateMachine.cs" />
   </ItemGroup>
