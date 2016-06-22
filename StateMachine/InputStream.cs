@@ -22,9 +22,8 @@
 					of the collection.
 
 ***************************************************************************************/
-using System;
+
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Manatee.StateMachine
 {
@@ -37,12 +36,12 @@ namespace Manatee.StateMachine
 	/// </typeparam>
 	public class InputStream<T> : List<T>
 	{
-		int _currentIndex;
+		private int _currentIndex;
 
 		///<summary>
 		/// Gets whether the current index is at the end of the stream.
 		///</summary>
-		public bool IsAtEnd { get { return _currentIndex == Count; } }
+		public bool IsAtEnd => _currentIndex == Count;
 
 		/// <summary>
 		/// A default constructor.

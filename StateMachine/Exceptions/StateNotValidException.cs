@@ -35,28 +35,21 @@ namespace Manatee.StateMachine.Exceptions
 		/// <summary>
 		/// The state that the state machine does not recognize.
 		/// </summary>
-		public TState State { get; private set; }
+		public TState State { get; }
 
-		/// <summary>
-		/// Creates a new instance of this exception.
-		/// </summary>
-		public StateNotValidException() { }
 		/// <summary>
 		/// Creates a new instance of this exception with the default message.
 		/// </summary>
-		public StateNotValidException(TState state)
-			: this(string.Format("State {0} is not registered.", state.ToString()))
+		internal StateNotValidException(TState state)
+			: this($"State {state} is not registered.")
 		{
 			State = state;
 		}
 		/// <summary>
 		/// Creates a new instance of this exception with a given message.
 		/// </summary>
-		public StateNotValidException(string message) : base(message) { }
-		/// <summary>
-		/// Creates a new instance of this exception with the a given message and inner exception.
-		/// </summary>
-		public StateNotValidException(string message, Exception inner) : base(message, inner) { }
+		private StateNotValidException(string message)
+			: base(message) {}
 		/// <summary>
 		/// Creates a new instance of this exception with serialization and context information.
 		/// </summary>
@@ -64,6 +57,6 @@ namespace Manatee.StateMachine.Exceptions
 		/// <param name="context">The context information.</param>
 		protected StateNotValidException(System.Runtime.Serialization.SerializationInfo info,
 		                                 System.Runtime.Serialization.StreamingContext context)
-			: base(info, context) { }
+			: base(info, context) {}
 	}
 }

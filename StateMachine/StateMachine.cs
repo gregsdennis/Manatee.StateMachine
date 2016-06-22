@@ -20,7 +20,7 @@
 	Purpose:		Represents an extensible generic state machine.
 
 ***************************************************************************************/
-using System;
+
 using System.Collections.Generic;
 using Manatee.StateMachine.Exceptions;
 using Manatee.StateMachine.Internal;
@@ -40,15 +40,15 @@ namespace Manatee.StateMachine
 		/// <summary>
 		/// Gets the list of states.
 		/// </summary>
-		public List<TState> States { get; private set; }
+		public List<TState> States { get; }
 		/// <summary>
 		/// Gets the list of all Inputs for all states.
 		/// </summary>
-		public List<TInput> Inputs { get; private set; }
+		public List<TInput> Inputs { get; }
 		/// <summary>
 		/// Gets the list of all actions for all state-input combinations.
 		/// </summary>
-		public List<StateMachineAction> Actions { get; private set; }
+		public List<StateMachineAction> Actions { get; }
 		/// <summary>
 		/// Gets and sets a custom update function.
 		/// </summary>
@@ -117,6 +117,7 @@ namespace Manatee.StateMachine
 		/// The next state for this StateMachine object.
 		/// </returns>
 		public delegate TState StateMachineAction(object owner, TInput input);
+
 		/// <summary>
 		/// Provides a method template for an action to be called before each iteration
 		/// of the state machine.
@@ -158,7 +159,7 @@ namespace Manatee.StateMachine
 		public void Run(object owner, TState startState, InputStream<TInput> inputStream)
 		{
 			_currentStates[owner] = startState;
-			if (UpdateFunction != null) UpdateFunction(owner);
+			UpdateFunction?.Invoke(owner);
 			inputStream.Reset();
 			while (!inputStream.IsAtEnd)
 			{
@@ -168,7 +169,7 @@ namespace Manatee.StateMachine
 				if (action == null)
 					throw new ActionNotDefinedForStateAndInputException<TState, TInput>(currentState, input);
 				_currentStates[owner] = action(owner, input);
-				if (UpdateFunction != null) UpdateFunction(owner);
+				UpdateFunction?.Invoke(owner);
 			}
 		}
 

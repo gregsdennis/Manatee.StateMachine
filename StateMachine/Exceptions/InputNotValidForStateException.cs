@@ -36,21 +36,17 @@ namespace Manatee.StateMachine.Exceptions
 		/// <summary>
 		/// The state of the state machine.
 		/// </summary>
-		public TState State { get; private set; }
+		public TState State { get; }
 		/// <summary>
 		/// The input that the state does not recognize.
 		/// </summary>
-		public TInput Input { get; private set; }
+		public TInput Input { get; }
 
-		/// <summary>
-		/// Creates a new instance of this exception.
-		/// </summary>
-		public InputNotValidForStateException() { }
 		/// <summary>
 		/// Creates a new instance of this exception with the default message.
 		/// </summary>
 		public InputNotValidForStateException(TState state, TInput input)
-			: this(string.Format("State {0} is not registered to accept input {1}.", state.ToString(), input.ToString()))
+			: this($"State {state} is not registered to accept input {input}.")
 		{
 			State = state;
 			Input = input;
@@ -58,18 +54,15 @@ namespace Manatee.StateMachine.Exceptions
 		/// <summary>
 		/// Creates a new instance of this exception with a given message.
 		/// </summary>
-		public InputNotValidForStateException(string message) : base(message) { }
-		/// <summary>
-		/// Creates a new instance of this exception with the a given message and inner exception.
-		/// </summary>
-		public InputNotValidForStateException(string message, Exception inner) : base(message, inner) { }
+		private InputNotValidForStateException(string message)
+			: base(message) {}
 		/// <summary>
 		/// Creates a new instance of this exception with serialization and context information.
 		/// </summary>
 		/// <param name="info">The serialization information.</param>
 		/// <param name="context">The context information.</param>
 		protected InputNotValidForStateException(System.Runtime.Serialization.SerializationInfo info,
-												 System.Runtime.Serialization.StreamingContext context)
-			: base(info, context) { }
+		                                         System.Runtime.Serialization.StreamingContext context)
+			: base(info, context) {}
 	}
 }

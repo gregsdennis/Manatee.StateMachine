@@ -36,21 +36,17 @@ namespace Manatee.StateMachine.Exceptions
 		/// <summary>
 		/// The state of the state machine.
 		/// </summary>
-		public TState State { get; private set; }
+		public TState State { get; }
 		/// <summary>
 		/// The input for the state.
 		/// </summary>
-		public TInput Input { get; private set; }
+		public TInput Input { get; }
 
-		/// <summary>
-		/// Creates a new instance of this exception.
-		/// </summary>
-		public ActionNotDefinedForStateAndInputException() { }
 		/// <summary>
 		/// Creates a new instance of this exception with the default message.
 		/// </summary>
 		public ActionNotDefinedForStateAndInputException(TState state, TInput input)
-			: this(string.Format("No action is defined for state {0} and input {1}.", state.ToString(), input.ToString()))
+			: this($"No action is defined for state {state} and input {input}.")
 		{
 			State = state;
 			Input = input;
@@ -58,11 +54,8 @@ namespace Manatee.StateMachine.Exceptions
 		/// <summary>
 		/// Creates a new instance of this exception with a given message.
 		/// </summary>
-		public ActionNotDefinedForStateAndInputException(string message) : base(message) { }
-		/// <summary>
-		/// Creates a new instance of this exception with the a given message and inner exception.
-		/// </summary>
-		public ActionNotDefinedForStateAndInputException(string message, Exception inner) : base(message, inner) { }
+		private ActionNotDefinedForStateAndInputException(string message)
+			: base(message) {}
 		/// <summary>
 		/// Creates a new instance of this exception with serialization and context information.
 		/// </summary>
@@ -70,6 +63,6 @@ namespace Manatee.StateMachine.Exceptions
 		/// <param name="context">The context information.</param>
 		protected ActionNotDefinedForStateAndInputException(System.Runtime.Serialization.SerializationInfo info,
 		                                                    System.Runtime.Serialization.StreamingContext context)
-			: base(info, context) { }
+			: base(info, context) {}
 	}
 }
