@@ -3,6 +3,6 @@
 ################################################################################
 
 /StateMachine/bin
-/StateMachine/obj/Debug
+/StateMachine/obj
 /.vs
 /Nuget
